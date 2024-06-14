@@ -947,6 +947,13 @@ local function UseATTInfo(details)
   end
 
   if not missing then
+    local mapID = ATTC.GetRelativeValue(ATTC.SearchForField("itemID", details.itemID)[1], "mapID")
+    if not mapID and items[1] then
+      mapID = ATTC.GetRelativeValue(ATTC.SearchForField("itemID", items[1])[1], "mapID")
+    end
+    if mapID then
+      table.insert(details.ATTKeywordsTmp, "zone:" .. ATTC.GetMapName(mapID):lower())
+    end
     details.ATTKeywords = details.ATTKeywordsTmp
     details.ATTSearch = nil
     details.ATTKeywordsTmp = nil
